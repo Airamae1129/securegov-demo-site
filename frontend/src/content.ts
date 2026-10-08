@@ -203,3 +203,79 @@ export const chatScripts: Record<string, { q: string; a: string }> = {
     a: "For remote access under NIS2 and ISO 27001, we recommend:\n\n1. Multi-factor authentication on all remote sessions\n2. VPN or zero-trust network access (ZTNA)\n3. Device compliance checks before connection\n4. Quarterly access reviews with sign-off\n\nAll four map to ISO 27001 A.8.20–A.8.22 and NIS2 Art. 21(2).",
   },
 };
+
+export const supportChat = {
+  agent: "Aira",
+  status: "SecureGov support · replies in 1 working day",
+  greeting:
+    "Hi — I'm Aira, the SecureGov support assistant. Pick a question below, type your own, or leave a message and one of the team will come back to you within one working day.",
+  footnote: "Answers here are automated. Leave a message and one of the team replies personally.",
+  handoffIntro:
+    "That one is best answered by a person who can look at your situation. Leave your details and one of the CyberHealth team will reply within one working day.",
+  fallback:
+    "I'm not sure I have a good automated answer for that, and it may be specific to you. Let's get one of the team to reply personally.",
+  faqs: [
+    {
+      id: "what",
+      q: "What is SecureGov?",
+      a: "SecureGov is AI-powered governance automation for European SMEs, built in Ireland by CyberHealth. It brings policies, risks, controls and audit evidence into one place, and turns overlapping EU rules — NIS2, the Cyber Resilience Act, DORA, GDPR and ISO 27001 — into one prioritised action plan.",
+      keywords: ["what is securegov", "what does securegov", "about securegov", "what do you do", "platform", "product", "who are you", "cyberhealth"],
+      action: "product-tour",
+    },
+    {
+      id: "frameworks",
+      q: "Which regulations and frameworks do you cover?",
+      a: "ISO 27001, ISO 42001, NIS2 (including national laws like the Belgian NIS2 Law, Austrian NIS Act and KRITIS), CyFun, GDPR, the Cyber Resilience Act and DORA. They're all consolidated into a single control framework, so one piece of evidence can count across several regulations.",
+      keywords: ["regulation", "framework", "cover", "do you support", "dora", "gdpr", "cra", "cyber resilience", "cyfun", "42001", "kritis", "standard"],
+      action: "features",
+    },
+    {
+      id: "price",
+      q: "How much does SecureGov cost?",
+      a: "Starter is free and includes the readiness dashboard, a basic AI advisor, self-assessment and one framework. Professional starts from €29/month with all five modules and multiple frameworks. Enterprise is priced on request for groups and regulated sectors.",
+      keywords: ["cost", "price", "pricing", "how much", "fee", "€", "euro", "plans", "free", "subscription", "cheap", "expensive", "per month"],
+      action: "pricing",
+    },
+    {
+      id: "team",
+      q: "Do we need a cybersecurity team to use it?",
+      a: "No — that's who it's built for. SecureGov is designed for SMEs with 10–250 staff and no dedicated security team. The Virtual Cyber Advisor explains each requirement in plain language, drafts policies and maps controls as you go.",
+      keywords: ["security team", "cybersecurity team", "expert", "no security", "technical", "it person", "need someone", "small business", "sme"],
+      action: null,
+    },
+    {
+      id: "start",
+      q: "How does it work and how long does setup take?",
+      a: "You answer seven questions (about ten minutes, no preparation needed). SecureGov then builds your risk profile, works out which regulations apply, guides you through a plain-language self-assessment and produces a prioritised 12-month strategy and roadmap.",
+      keywords: ["how does it work", "how does securegov work", "how it works", "setup", "set up", "get started", "getting started", "onboard", "how long", "minutes", "steps", "process"],
+      action: "how-it-works",
+    },
+    {
+      id: "security",
+      q: "Is our data secure? Where is it hosted?",
+      a: "Yes. SecureGov is ISO 27001 and ISO 42001 certified, encrypts data at rest and in transit, uses role-based access control and keeps full audit trails. Everything is hosted in EU data centres and built GDPR-by-design — your data stays in Europe.",
+      keywords: ["secure", "safe", "data", "hosted", "hosting", "encrypt", "privacy", "data centre", "data center", "stored"],
+      action: "security",
+    },
+    {
+      id: "iso",
+      q: "Can SecureGov help us get ISO 27001 ready?",
+      a: "Yes. SecureGov structures your Statement of Applicability, tracks control progress and generates a complete audit pack — policies, evidence and control status — in one click. Most teams reach an audit-ready structure in about 30 days. The certification itself is still issued by an accredited certification body.",
+      keywords: ["iso 27001", "27001", "certif", "audit", "statement of applicability", "soa"],
+      action: "use-cases",
+    },
+    {
+      id: "nis2",
+      q: "Does NIS2 apply to my company?",
+      a: "It depends on your sector, size and country — and each EU country transposes NIS2 differently. SecureGov's applicability rules check this for you during setup, then show a gap heat map of exactly where you stand against your national law. For a definite answer on your own business, the team can review it with you.",
+      keywords: ["nis2", "nis 2", "apply", "applies", "in scope", "essential", "important entit", "national law", "transposition"],
+      action: "use-cases",
+    },
+  ],
+  // Phrases that signal an account-, billing- or incident-specific question: these always go to a person.
+  personalKeywords: [
+    "my account", "our account", "login", "log in", "sign in", "password", "invoice", "billing", "refund",
+    "cancel", "delete my", "complaint", "contract", "breach", "hacked", "incident", "attack",
+    "ransomware", "urgent", "speak to", "talk to", "human", "a person", "real person", "call me", "phone me", "quote",
+  ],
+};

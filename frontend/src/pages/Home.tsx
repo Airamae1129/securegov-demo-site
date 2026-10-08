@@ -20,6 +20,7 @@ import { CtaSection } from "@/components/landing/CtaSection";
 import { Roadmap } from "@/components/landing/Roadmap";
 import { Footer } from "@/components/landing/Footer";
 import { CookieBanner } from "@/components/landing/CookieBanner";
+import { SupportChat } from "@/components/landing/SupportChat";
 
 export default function Home() {
   const [loaded, setLoaded] = useState(false);
@@ -63,6 +64,7 @@ export default function Home() {
       </main>
       <Footer />
       <CookieBanner />
+      <SupportChat />
     </div>
   );
 }

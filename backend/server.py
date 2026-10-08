@@ -60,6 +60,24 @@ class DemoRequestResponse(BaseModel):
     message: str
 
 
+class SupportMessageCreate(BaseModel):
+    name: str = Field(min_length=1, max_length=120)
+    email: EmailStr
+    message: str = Field(min_length=1, max_length=2000)
+    consent: bool
+
+class SupportMessage(BaseModel):
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    name: str
+    email: EmailStr
+    message: str
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+
+class SupportMessageResponse(BaseModel):
+    id: str
+    message: str
+
+
 @api_router.get("/")
 async def root():
     return {"message": "SecureGov demo API"}
@@ -89,6 +107,22 @@ async def create_demo_request(input: DemoRequestCreate):
 async def list_demo_requests():
     docs = await db.demo_requests.find().sort("created_at", -1).to_list(500)
     return [DemoRequest(**d) for d in docs]
+
+
+@api_router.post("/support-messages", response_model=SupportMessageResponse, status_code=201)
+async def create_support_message(input: SupportMessageCreate):
+    if not input.consent:
+        from fastapi import HTTPException
+        raise HTTPException(status_code=422, detail="GDPR consent is required")
+    msg = SupportMessage(**input.model_dump(exclude={"consent"}))
+    await db.support_messages.insert_one(msg.model_dump())
+    first = msg.name.split()[0]
+    return SupportMessageResponse(id=msg.id, message=f"Thanks {first} — your message is with the CyberHealth team. Someone will reply to {msg.email} within one working day.")
+
+@api_router.get("/support-messages", response_model=List[SupportMessage])
+async def list_support_messages():
+    docs = await db.support_messages.find().sort("created_at", -1).to_list(500)
+    return [SupportMessage(**d) for d in docs]
 
 
 app.include_router(api_router)

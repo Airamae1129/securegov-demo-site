@@ -5,7 +5,7 @@ import { Reveal } from "./Reveal";
 
 export function HowItWorks() {
   return (
-    <section data-testid="how-it-works-section" className="relative overflow-hidden bg-white py-28">
+    <section id="how-it-works" data-testid="how-it-works-section" className="relative overflow-hidden bg-white py-28">
       <div className="mx-auto max-w-[1320px] px-5 md:px-8">
         <SectionHeading
           eyebrow="HOW IT WORKS"
