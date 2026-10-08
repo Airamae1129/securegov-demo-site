@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { MessageCircle, X, Send, UserRound, ArrowRight, Loader2 } from "lucide-react";
+import { MessageCircle, X, Send, UserRound, ArrowRight, Loader2, Bot } from "lucide-react";
 import { site, supportChat } from "@/content";
 import { apiPost, ApiError } from "@/lib/api";
 import { scrollToId } from "@/lib/lenis";
@@ -173,7 +173,7 @@ export function SupportChat() {
             {/* Header */}
             <div className="flex items-center gap-3 border-b border-sg-violet-400/15 bg-sg-ink-900 px-4 py-3.5">
               <span className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-sg-violet-400 to-sg-primary font-heading text-base font-bold text-white">
-                {supportChat.agent[0]}
+                <Bot className="h-5 w-5" aria-hidden="true" />
               </span>
               <div className="min-w-0 flex-1">
                 <p className="font-heading text-base font-bold leading-tight text-white">{supportChat.agent}</p>
@@ -217,7 +217,7 @@ export function SupportChat() {
               ))}
 
               {typing && (
-                <div className="flex justify-start" aria-label={`${supportChat.agent} is typing`}>
+                <div className="flex justify-start" aria-label="Assistant is typing">
                   <div className="flex gap-1 rounded-2xl rounded-bl-md border border-sg-violet-400/15 bg-white/[0.06] px-4 py-3">
                     <span className="sg-typing-dot h-1.5 w-1.5 rounded-full bg-sg-violet-300" />
                     <span className="sg-typing-dot h-1.5 w-1.5 rounded-full bg-sg-violet-300" />

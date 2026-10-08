@@ -205,10 +205,10 @@ export const chatScripts: Record<string, { q: string; a: string }> = {
 };
 
 export const supportChat = {
-  agent: "Aira",
-  status: "SecureGov support · replies in 1 working day",
+  agent: "SecureGov Assistant",
+  status: "Online · replies in 1 working day",
   greeting:
-    "Hi — I'm Aira, the SecureGov support assistant. Pick a question below, type your own, or leave a message and one of the team will come back to you within one working day.",
+    "Hi — I'm the SecureGov support assistant. Pick a question below, type your own, or leave a message and one of the team will come back to you within one working day.",
   footnote: "Answers here are automated. Leave a message and one of the team replies personally.",
   handoffIntro:
     "That one is best answered by a person who can look at your situation. Leave your details and one of the CyberHealth team will reply within one working day.",
