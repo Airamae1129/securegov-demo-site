@@ -35,7 +35,7 @@ function VideoModal({ open, onClose }: { open: boolean; onClose: () => void }) {
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center justify-between border-b border-sg-violet-400/15 px-5 py-3">
-          <p className="font-mono text-xs uppercase tracking-[0.2em] text-sg-violet-300">SecureGov AI · 60-second overview</p>
+          <p className="font-mono text-xs uppercase tracking-[0.2em] text-sg-violet-300">SecureGov · 60-second overview</p>
           <button data-testid="video-modal-close" onClick={onClose} aria-label="Close video" className="text-sg-violet-300 hover:text-white">
             <X className="h-5 w-5" />
           </button>

@@ -21,7 +21,7 @@ export function Roadmap() {
         <SectionHeading
           dark
           eyebrow="COMING SOON"
-          title="Where SecureGov AI goes next"
+          title="Where SecureGov goes next"
           sub="Already in the lab — shipping to customers quarter by quarter."
         />
 

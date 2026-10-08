@@ -19,7 +19,7 @@ export function ProductTour() {
           dark
           eyebrow="GUIDED PRODUCT TOUR"
           title="This is the real product. Fictional data only."
-          sub="Click through the actual SecureGov AI interface — every screen you see is what your team would use. Demo Company Ltd, Demo User."
+          sub="Click through the actual SecureGov interface — every screen you see is what your team would use. Demo Company Ltd, Demo User."
           align="center"
         />
 

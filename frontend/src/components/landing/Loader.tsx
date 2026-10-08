@@ -19,7 +19,7 @@ export function Loader({ onDone }: { onDone: () => void }) {
       data-testid="intro-loader"
       className={`fixed inset-0 z-[100] flex flex-col items-center justify-center bg-sg-ink-950 ${leaving ? "sg-loader-out" : ""}`}
       role="status"
-      aria-label="Loading SecureGov AI"
+      aria-label="Loading SecureGov"
     >
       <svg viewBox="0 0 100 100" className="h-24 w-24" aria-hidden="true">
         <path

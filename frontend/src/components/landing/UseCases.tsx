@@ -14,7 +14,7 @@ export function UseCases() {
         <SectionHeading
           eyebrow="USE CASES"
           title="Real problems. Solved in weeks, not quarters."
-          sub="Tap a card to see how SecureGov AI handles it."
+          sub="Tap a card to see how SecureGov handles it."
         />
         <div className="mt-14 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {useCases.map((u, i) => {
@@ -38,7 +38,7 @@ export function UseCases() {
                       <h3 className="mt-4 font-heading text-lg font-bold leading-snug text-sg-text">{u.title}</h3>
                       <p className="mt-3 text-sm leading-relaxed text-sg-muted">{u.problem}</p>
                       <span className="mt-auto inline-flex items-center gap-2 text-xs font-semibold text-sg-primary">
-                        <ArrowLeftRight className="h-3.5 w-3.5" /> How SecureGov AI solves it
+                        <ArrowLeftRight className="h-3.5 w-3.5" /> How SecureGov solves it
                       </span>
                     </div>
                     {/* back */}

@@ -1,5 +1,5 @@
 export const site = {
-  name: "SecureGov AI",
+  name: "SecureGov",
   company: "CyberHealth",
   country: "Ireland",
   url: "securegov.eu",
@@ -20,7 +20,7 @@ export const nav = [
 export const hero = {
   eyebrow: "BUILT IN IRELAND · FOR EUROPEAN SMES",
   lines: ["Automated Governance.", "Instant Compliance.", "Audit-Ready."],
-  sub: "SecureGov AI is AI-powered governance automation for policies, risks, controls and evidence — built for European SMEs and ready for NIS2, the Cyber Resilience Act and ISO 27001.",
+  sub: "SecureGov is AI-powered governance automation for policies, risks, controls and evidence — built for European SMEs and ready for NIS2, the Cyber Resilience Act and ISO 27001.",
   tagline: "No cybersecurity team? No problem.",
   cards: [
     { label: "Compliance Index", value: "78", chip: "Medium" },
@@ -38,7 +38,7 @@ export const problem = {
   body: "NIS2 and its national transpositions, the Cyber Resilience Act, DORA, GDPR, ISO 27001 — each asks for something slightly different, in slightly different words. For an SME with 10–250 staff, no security team and a real business to run, that overlap is the risk.",
   chips: ["NIS2", "Belgian NIS2 Law", "Austrian NIS Act", "KRITIS", "CRA", "DORA", "GDPR", "ISO 27001", "Cyber Solidarity Act"],
   resolution: "One control framework",
-  resolutionSub: "SecureGov AI consolidates every obligation into a single, prioritised set of controls. One place. One plan.",
+  resolutionSub: "SecureGov consolidates every obligation into a single, prioritised set of controls. One place. One plan.",
 };
 
 export const modules = [
@@ -107,7 +107,7 @@ export const useCases = [
     id: "iso",
     title: "ISO 27001 readiness in 30 days",
     problem: "Certification feels like a six-month consulting project.",
-    solution: "SecureGov AI structures your Statement of Applicability, tracks control progress and shows a readiness ring filling day by day.",
+    solution: "SecureGov structures your Statement of Applicability, tracks control progress and shows a readiness ring filling day by day.",
     stat: "30 days",
     statLabel: "to audit-ready structure",
   },
@@ -177,7 +177,7 @@ export const pricing = [
 
 export const cta = {
   title: "Don't wait for a cyber incident or an audit.",
-  sub: "Be proactive with SecureGov AI.",
+  sub: "Be proactive with SecureGov.",
   sizes: ["1–10", "11–50", "51–250", "250+"],
   frameworkOptions: ["NIS2", "ISO 27001", "GDPR", "DORA", "CRA", "ISO 42001", "CyFun"],
 };

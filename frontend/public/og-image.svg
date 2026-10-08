@@ -18,7 +18,7 @@
       <path d="M87 108 v-11 a13 13 0 0 1 26 0 v11 h-8 v-11 a5 5 0 0 0 -10 0 v11 Z"/>
     </g>
   </g>
-  <text x="340" y="290" font-family="Arial, sans-serif" font-size="84" font-weight="800" fill="#FFFFFF" letter-spacing="4">SECUREGOV AI</text>
+  <text x="340" y="290" font-family="Arial, sans-serif" font-size="84" font-weight="800" fill="#FFFFFF" letter-spacing="4">SECUREGOV</text>
   <text x="340" y="360" font-family="Arial, sans-serif" font-size="34" fill="#CFC4E4">Automated Governance. Instant Compliance. Audit-Ready.</text>
   <text x="340" y="420" font-family="Arial, sans-serif" font-size="26" fill="#A98BF0">NIS2 · CRA · DORA · GDPR · ISO 27001 — built for European SMEs</text>
 </svg>

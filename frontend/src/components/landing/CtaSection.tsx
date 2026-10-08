@@ -73,7 +73,7 @@ export function CtaSection() {
                   <FileDown className="h-5 w-5 text-white" />
                 </span>
                 <div>
-                  <p className="text-sm font-semibold text-white">Download the SecureGov AI overview</p>
+                  <p className="text-sm font-semibold text-white">Download the SecureGov overview</p>
                   <p className="text-xs text-sg-violet-300/70">PDF — coming soon, request it in the form</p>
                 </div>
               </a>

@@ -51,7 +51,7 @@ export function SolutionHub() {
         <SectionHeading
           eyebrow="THE SOLUTION"
           title="Five modules. One AI engine."
-          sub="SecureGov AI runs your whole governance programme from one hub — not five piecemeal tools."
+          sub="SecureGov runs your whole governance programme from one hub — not five piecemeal tools."
         />
 
         <div ref={ref} className="relative mx-auto mt-10 hidden max-w-4xl md:block" style={{ height: 500 }}>

@@ -125,7 +125,7 @@ export function CapabilitiesBento() {
       `}</style>
       <div className="mx-auto max-w-[1320px] px-5 md:px-8">
         <SectionHeading
-          eyebrow="WHAT SECUREGOV AI DOES"
+          eyebrow="WHAT SECUREGOV DOES"
           title="Everything governance needs, in one place"
           sub="Policies, risks, controls and evidence — automated, prioritised and explained in plain language."
         />

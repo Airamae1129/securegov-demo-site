@@ -32,7 +32,6 @@ export function Logo({ variant = "color", withWordmark = true, className = "" }:
           }`}
         >
           SECUREGOV
-          <span className={variant === "white" ? "text-sg-violet-400" : "text-sg-violet-400"}> AI</span>
         </span>
       )}
     </span>

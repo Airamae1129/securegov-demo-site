@@ -1,7 +1,7 @@
-# SecureGov AI — Public Demo Landing Page
+# SecureGov — Public Demo Landing Page
 
 ## Original problem statement
-Build a public, heavily-animated demo landing page for SecureGov AI (by CyberHealth, Ireland), an AI-powered cyber GRC platform for European SMEs. Match the live product identity (deep-aubergine sidebar, lavender canvas, royal-purple accents, Inter) with a modern cinematic layer: 3D hero shield, scroll stories, faithful product-tour replica, honest scoring as a differentiator. No real client data, no auth, no real AI — scripted demo content only.
+Build a public, heavily-animated demo landing page for SecureGov (by CyberHealth, Ireland), an AI-powered cyber GRC platform for European SMEs. Match the live product identity (deep-aubergine sidebar, lavender canvas, royal-purple accents, Inter) with a modern cinematic layer: 3D hero shield, scroll stories, faithful product-tour replica, honest scoring as a differentiator. No real client data, no auth, no real AI — scripted demo content only.
 
 ## User decisions (confirmed)
 - Certification claims confirmed: "ISO 27001 & ISO 42001 certified" + "Hosted in EU data centres" are published.
