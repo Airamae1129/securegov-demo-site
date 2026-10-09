@@ -2,6 +2,7 @@ import { useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { SectionHeading } from "./SectionHeading";
 import { Logo } from "./Logo";
+import { OverviewVideo } from "./OverviewVideo";
 import { SCREEN_META, TourScreen, type ScreenId } from "./tourScreens";
 import { Bell, Lock, Building2, Users } from "lucide-react";
 
@@ -134,6 +135,26 @@ export function ProductTour() {
               </div>
               <div className="border-t border-[#E9E3F5] px-5 py-2 text-right font-mono text-[9px] text-sg-muted/60">SecureGov 4.1.0 · demo environment · fictional data</div>
             </div>
+          </div>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+          className="mx-auto mt-20 max-w-4xl"
+          data-testid="tour-overview-video"
+        >
+          <p className="sg-eyebrow text-center text-sg-violet-400">PREFER TO WATCH?</p>
+          <h3 className="mt-3 text-center font-heading text-2xl font-bold text-white sm:text-3xl">
+            See SecureGov in action
+          </h3>
+          <p className="mx-auto mt-3 max-w-xl text-center text-sm text-sg-violet-300/80">
+            Onboard, consolidate, measure, act and prove — the whole journey in one short overview.
+          </p>
+          <div className="mt-8 overflow-hidden rounded-2xl border border-sg-violet-400/30 shadow-[0_0_80px_rgba(124,77,219,0.35)]">
+            <OverviewVideo />
           </div>
         </motion.div>
       </div>

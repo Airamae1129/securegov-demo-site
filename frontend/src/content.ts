@@ -279,3 +279,10 @@ export const supportChat = {
     "ransomware", "urgent", "speak to", "talk to", "human", "a person", "real person", "call me", "phone me", "quote",
   ],
 };
+
+export const overviewVideo = {
+  src: "/video/securegov-overview.mp4",
+  poster: "/video/securegov-overview-poster.jpg",
+  cta: "Watch the product overview",
+  title: "SecureGov · Product overview",
+};

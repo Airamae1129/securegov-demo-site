@@ -1,5 +1,6 @@
 import { lazy, Suspense, useEffect, useState } from "react";
-import { hero } from "@/content";
+import { hero, overviewVideo } from "@/content";
+import { OverviewVideo } from "./OverviewVideo";
 import { Magnetic } from "./Magnetic";
 import { Logo } from "./Logo";
 import { scrollToId } from "@/lib/lenis";
@@ -31,28 +32,16 @@ function VideoModal({ open, onClose }: { open: boolean; onClose: () => void }) {
       onClick={onClose}
     >
       <div
-        className="w-full max-w-3xl overflow-hidden rounded-2xl border border-sg-violet-400/25 bg-sg-ink-900 shadow-2xl"
+        className="w-full max-w-4xl overflow-hidden rounded-2xl border border-sg-violet-400/25 bg-sg-ink-900 shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center justify-between border-b border-sg-violet-400/15 px-5 py-3">
-          <p className="font-mono text-xs uppercase tracking-[0.2em] text-sg-violet-300">SecureGov · 60-second overview</p>
+          <p className="font-mono text-xs uppercase tracking-[0.2em] text-sg-violet-300">{overviewVideo.title}</p>
           <button data-testid="video-modal-close" onClick={onClose} aria-label="Close video" className="text-sg-violet-300 hover:text-white">
             <X className="h-5 w-5" />
           </button>
         </div>
-        <div className="sg-mesh-bg relative flex aspect-video flex-col items-center justify-center gap-5">
-          <div className="sg-glow-pulse flex h-20 w-20 items-center justify-center rounded-full bg-sg-primary">
-            <Play className="h-8 w-8 fill-white text-white" />
-          </div>
-          <p className="max-w-sm text-center text-sm text-sg-violet-300">
-            Explainer video placeholder — the 60-second product overview will live here.
-          </p>
-          <div className="flex gap-1.5" aria-hidden="true">
-            {[0, 1, 2, 3, 4].map((i) => (
-              <span key={i} className="sg-typing-dot h-1.5 w-1.5 rounded-full bg-sg-violet-400" style={{ animationDelay: `${i * 0.15}s` }} />
-            ))}
-          </div>
-        </div>
+        <OverviewVideo autoPlay />
       </div>
     </div>
   );
@@ -113,7 +102,7 @@ export function HeroSection({ started, onDemo }: { started: boolean; onDemo: () 
               <span className="flex h-9 w-9 items-center justify-center rounded-full border border-sg-violet-400/40">
                 <Play className="ml-0.5 h-3.5 w-3.5 fill-current" />
               </span>
-              Watch the 60-second overview
+              {overviewVideo.cta}
             </button>
           </div>
 
