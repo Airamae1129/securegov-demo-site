@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { chatScripts } from "@/content";
 import {
-  LayoutDashboard, Activity, Bell, FileText, ShieldAlert, FolderLock, Layers, BarChart3, Bot,
-  CheckCircle2, AlertTriangle, XCircle, Clock, FileDown, ChevronRight,
+  LayoutDashboard, Activity, Bell, Layers, BarChart3, Bot, ShieldCheck, ClipboardCheck,
+  CheckCircle2, AlertTriangle, XCircle, ChevronRight,
 } from "lucide-react";
 
 /* ---------- shared bits ---------- */
@@ -71,9 +71,9 @@ export function DashboardScreen() {
     { icon: Layers, t: "Requirements Consolidation", d: "One framework across 7 regimes" },
     { icon: Activity, t: "Risk & Readiness", d: "Honest scores, live posture" },
     { icon: BarChart3, t: "Strategy & Roadmap", d: "Your 12-month plan" },
-    { icon: ShieldAlert, t: "Supplier Risk", d: "3 assessments in flight" },
     { icon: Bot, t: "Virtual Cyber Advisor", d: "Ask anything, any time" },
-    { icon: FileText, t: "Policy Library", d: "14 policies, all current" },
+    { icon: ShieldCheck, t: "Frameworks", d: "ISO 27001 · CyFun · NIS2 · CRA" },
+    { icon: ClipboardCheck, t: "Self-Assessment", d: "7 of 9 sections complete" },
   ];
   return (
     <div>
@@ -243,241 +243,72 @@ export function AlertsScreen() {
   );
 }
 
-export function PoliciesScreen() {
-  const policies = [
-    { n: "Information Security Policy", v: "v2.1", o: "CISO", s: "Active" },
-    { n: "Access Control Policy", v: "v1.4", o: "IT Manager", s: "Active" },
-    { n: "Incident Response Plan", v: "v1.2", o: "IT Manager", s: "Pending review" },
-    { n: "Data Classification Policy", v: "v1.0", o: "DPO", s: "Active" },
-    { n: "Supplier Security Policy", v: "v0.9", o: "Operations", s: "Draft" },
+export function FrameworksScreen() {
+  const frameworks = [
+    { n: "ISO 27001", d: "Information security management", pct: 72, c: "93 Annex A controls", tone: "green" as const, chip: "On track" },
+    { n: "CyFun", d: "CyberFundamentals · Important level", pct: 64, c: "Basic → Essential levels", tone: "purple" as const, chip: "In progress" },
+    { n: "NIS2", d: "Incl. national transposition", pct: 58, c: "Art. 21 risk measures", tone: "amber" as const, chip: "Gaps found" },
+    { n: "Cyber Resilience Act", d: "Products with digital elements", pct: 41, c: "Annex I requirements", tone: "amber" as const, chip: "Early stage" },
   ];
   return (
     <div>
-      <div className="mb-4 flex items-center justify-between">
-        <h3 className="font-heading text-lg font-bold text-sg-text">Policy Library</h3>
-        <span className="inline-flex items-center gap-1.5 rounded-lg bg-sg-primary px-3 py-1.5 text-xs font-semibold text-white">+ New policy</span>
-      </div>
-      <div className="space-y-2">
-        {policies.map((p, i) => (
-          <div key={p.n} className="relative flex items-center gap-4 rounded-xl border border-[#E9E3F5] bg-white p-3.5">
-            {i === 2 && <Hotspot label="Version-controlled: every change has an owner and an audit trail." className="-right-1 -top-1" />}
-            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-sg-tint">
-              <FileText className="h-[18px] w-[18px] text-sg-primary" strokeWidth={1.8} />
-            </div>
-            <div className="min-w-0 flex-1">
-              <p className="truncate text-sm font-semibold text-sg-text">{p.n}</p>
-              <p className="text-[11px] text-sg-muted">{p.v} · Owner: {p.o}</p>
-            </div>
-            <Chip tone={p.s === "Active" ? "green" : p.s === "Draft" ? "purple" : "amber"}>{p.s}</Chip>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-export function RisksScreen() {
-  const risks = [
-    { r: "Phishing leading to credential theft", l: "High", i: "High", s: 16, o: "IT Manager", c: "A.5.17, A.8.5" },
-    { r: "Unpatched remote-access VPN", l: "Medium", i: "High", s: 12, o: "IT Manager", c: "A.8.20" },
-    { r: "Supplier data breach", l: "Medium", i: "High", s: 12, o: "Operations", c: "A.5.22" },
-    { r: "Ransomware on file server", l: "Low", i: "High", s: 8, o: "IT Manager", c: "A.8.13" },
-    { r: "Lost laptop with local data", l: "Medium", i: "Medium", s: 9, o: "All staff", c: "A.7.9" },
-    { r: "Misconfigured cloud storage", l: "Medium", i: "Medium", s: 9, o: "IT Manager", c: "A.8.9" },
-  ];
-  return (
-    <div>
-      <div className="mb-4 flex items-center justify-between">
-        <h3 className="font-heading text-lg font-bold text-sg-text">Risk Register</h3>
-        <span className="inline-flex items-center gap-1.5 rounded-lg bg-sg-primary px-3 py-1.5 text-xs font-semibold text-white">+ Add risk</span>
-      </div>
-      <Card hotspot={{ label: "Every risk links to the controls that treat it — across frameworks.", className: "right-3 top-3" }}>
-        <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs">
-            <thead>
-              <tr className="border-b border-[#E9E3F5] text-[10px] uppercase tracking-wider text-sg-muted">
-                <th className="pb-2 pr-4 font-medium">Risk</th><th className="pb-2 pr-4 font-medium">Likelihood</th><th className="pb-2 pr-4 font-medium">Impact</th><th className="pb-2 pr-4 font-medium">Score</th><th className="pb-2 pr-4 font-medium">Owner</th><th className="pb-2 font-medium">Linked controls</th>
-              </tr>
-            </thead>
-            <tbody>
-              {risks.map((r) => (
-                <tr key={r.r} className="border-b border-[#E9E3F5]/60 last:border-0">
-                  <td className="py-2.5 pr-4 font-medium text-sg-text">{r.r}</td>
-                  <td className="py-2.5 pr-4 text-sg-muted">{r.l}</td>
-                  <td className="py-2.5 pr-4 text-sg-muted">{r.i}</td>
-                  <td className="py-2.5 pr-4"><Chip tone={r.s >= 15 ? "red" : r.s >= 10 ? "amber" : "green"}>{r.s}</Chip></td>
-                  <td className="py-2.5 pr-4 text-sg-muted">{r.o}</td>
-                  <td className="py-2.5 font-mono text-[11px] text-sg-primary">{r.c}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </Card>
-    </div>
-  );
-}
-
-export function EvidenceScreen() {
-  const files = [
-    { n: "mfa-rollout-report.pdf", tags: ["ISO 27001 A.5.17", "NIS2 Art. 21"], d: "12 May 2026" },
-    { n: "pen-test-summary-2026.pdf", tags: ["NIS2 Art. 21"], d: "28 Apr 2026" },
-    { n: "dpa-acme-hosting-signed.pdf", tags: ["GDPR Art. 28"], d: "14 Apr 2026" },
-    { n: "access-review-q1.xlsx", tags: ["ISO 27001 A.5.18"], d: "02 Apr 2026" },
-  ];
-  return (
-    <div>
-      <div className="mb-4 flex items-center justify-between">
-        <h3 className="font-heading text-lg font-bold text-sg-text">Evidence Repository</h3>
-        <span className="inline-flex items-center gap-1.5 rounded-lg bg-sg-primary px-3 py-1.5 text-xs font-semibold text-white">+ Upload</span>
-      </div>
-      <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
-        {files.map((f, i) => (
-          <Card key={f.n} hotspot={i === 0 ? { label: "Tag evidence once — it counts towards every framework it satisfies.", className: "-right-1 -top-1" } : undefined}>
-            <div className="flex items-center gap-3">
-              <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-sg-tint">
-                <FolderLock className="h-[18px] w-[18px] text-sg-primary" strokeWidth={1.8} />
+      <h3 className="mb-1 font-heading text-lg font-bold text-sg-text">Frameworks</h3>
+      <p className="mb-4 text-xs text-sg-muted">Every framework in scope, measured against one shared control set.</p>
+      <div className="mb-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
+        {frameworks.map((f, i) => (
+          <Card key={f.n} hotspot={i === 0 ? { label: "Readiness per framework — one control can count towards several at once.", className: "-right-1 -top-1" } : undefined}>
+            <div className="flex items-start justify-between gap-3">
+              <div>
+                <p className="text-sm font-semibold text-sg-text">{f.n}</p>
+                <p className="mt-0.5 text-[11px] text-sg-muted">{f.d}</p>
               </div>
-              <div className="min-w-0">
-                <p className="truncate font-mono text-xs font-semibold text-sg-text">{f.n}</p>
-                <p className="text-[11px] text-sg-muted">Uploaded {f.d}</p>
-              </div>
+              <Donut pct={f.pct} />
             </div>
-            <div className="mt-3 flex flex-wrap gap-1.5">
-              {f.tags.map((t) => <Chip key={t} tone="purple">{t}</Chip>)}
+            <div className="mt-3 flex items-center justify-between">
+              <span className="font-mono text-[10px] text-sg-muted">{f.c}</span>
+              <Chip tone={f.tone}>{f.chip}</Chip>
             </div>
           </Card>
         ))}
       </div>
-    </div>
-  );
-}
-
-export function FrameworksScreen() {
-  return (
-    <div>
-      <h3 className="mb-1 font-heading text-lg font-bold text-sg-text">Framework Mapping</h3>
-      <p className="mb-4 text-xs text-sg-muted">One control, satisfied everywhere it counts.</p>
-      <Card hotspot={{ label: "Implement MFA once — it evidences ISO 27001, NIS2 and GDPR at the same time.", className: "right-3 top-3" }}>
-        <svg viewBox="0 0 640 240" className="w-full" role="img" aria-label="Diagram: MFA control maps to ISO 27001 Annex A, NIS2 Article 21 and GDPR Article 32">
+      <Card title="Framework mapping" hotspot={{ label: "Implement MFA once — it evidences ISO 27001, CyFun, NIS2 and the CRA at the same time.", className: "right-3 top-3" }}>
+        <svg viewBox="0 0 640 260" className="w-full" role="img" aria-label="Diagram: MFA control maps to ISO 27001, CyFun, NIS2 and the Cyber Resilience Act">
           <defs>
             <linearGradient id="sg-sankey" x1="0" y1="0" x2="1" y2="0">
               <stop offset="0" stopColor="#4C1B8C" /><stop offset="1" stopColor="#0A84FF" />
             </linearGradient>
           </defs>
-          {[
-            { y1: 120, y2: 40 }, { y1: 120, y2: 120 }, { y1: 120, y2: 200 },
-          ].map((l, i) => (
+          {[28, 96, 164, 232].map((y2, i) => (
             <path
               key={i}
-              d={`M 210 ${l.y1} C 330 ${l.y1}, 330 ${l.y2}, 430 ${l.y2}`}
-              fill="none" stroke="url(#sg-sankey)" strokeWidth="10" strokeOpacity="0.35" strokeLinecap="round"
+              d={`M 210 130 C 330 130, 330 ${y2}, 430 ${y2}`}
+              fill="none" stroke="url(#sg-sankey)" strokeWidth="9" strokeOpacity="0.35" strokeLinecap="round"
               className="sankey-flow"
-              style={{ animationDelay: `${i * 0.4}s` }}
+              style={{ animationDelay: `${i * 0.35}s` }}
             />
           ))}
           <style>{`@keyframes sankeypulse { 0%,100% { stroke-opacity: .18; } 50% { stroke-opacity: .55; } } .sankey-flow { animation: sankeypulse 2.8s ease-in-out infinite; }`}</style>
           <g>
-            <rect x="20" y="86" width="190" height="68" rx="12" fill="#4C1B8C" />
-            <text x="115" y="114" textAnchor="middle" fill="#fff" fontSize="12" fontWeight="700">Multi-Factor Auth</text>
-            <text x="115" y="134" textAnchor="middle" fill="#CFC4E4" fontSize="10">SecureGov control SG-AC-04</text>
+            <rect x="20" y="96" width="190" height="68" rx="12" fill="#4C1B8C" />
+            <text x="115" y="124" textAnchor="middle" fill="#fff" fontSize="12" fontWeight="700">Multi-Factor Auth</text>
+            <text x="115" y="144" textAnchor="middle" fill="#CFC4E4" fontSize="10">SecureGov control SG-AC-04</text>
           </g>
           {[
-            { y: 8, t: "ISO 27001 Annex A", s: "A.5.17 Authentication" },
-            { y: 88, t: "NIS2 Article 21", s: "21(2)(j) MFA / crypto" },
-            { y: 168, t: "GDPR Article 32", s: "Security of processing" },
+            { y: 4, t: "ISO 27001 Annex A", s: "A.5.17 Authentication" },
+            { y: 72, t: "CyFun", s: "Identity & access control" },
+            { y: 140, t: "NIS2 Article 21", s: "21(2)(j) MFA / crypto" },
+            { y: 208, t: "Cyber Resilience Act", s: "Annex I · access control" },
           ].map((n) => (
             <g key={n.t}>
-              <rect x="430" y={n.y} width="190" height="64" rx="12" fill="#fff" stroke="#E9E3F5" />
-              <rect x="430" y={n.y} width="5" height="64" rx="2.5" fill="#4C1B8C" />
-              <text x="448" y={n.y + 26} fill="#1B1523" fontSize="12" fontWeight="700">{n.t}</text>
-              <text x="448" y={n.y + 46} fill="#6E608A" fontSize="10">{n.s}</text>
+              <rect x="430" y={n.y} width="190" height="48" rx="10" fill="#fff" stroke="#E9E3F5" />
+              <rect x="430" y={n.y} width="5" height="48" rx="2.5" fill="#4C1B8C" />
+              <text x="448" y={n.y + 20} fill="#1B1523" fontSize="12" fontWeight="700">{n.t}</text>
+              <text x="448" y={n.y + 37} fill="#6E608A" fontSize="10">{n.s}</text>
             </g>
           ))}
         </svg>
       </Card>
     </div>
-  );
-}
-
-export function ReportsScreen() {
-  const [tab, setTab] = useState(0);
-  const tabs = ["Report Templates", "Generated Reports", "Scheduled Reports"];
-  return (
-    <div>
-      <h3 className="mb-4 font-heading text-lg font-bold text-sg-text">Reports</h3>
-      <div className="mb-4 flex gap-5 border-b border-[#E9E3F5]" role="tablist" aria-label="Report views">
-        {tabs.map((t, i) => (
-          <button
-            key={t}
-            role="tab"
-            aria-selected={tab === i}
-            data-testid={`reports-tab-${i}`}
-            onClick={() => setTab(i)}
-            className={`relative pb-2.5 text-xs font-medium transition-colors ${tab === i ? "text-sg-primary" : "text-sg-muted hover:text-sg-text"}`}
-          >
-            {t}
-            {tab === i && <span className="absolute inset-x-0 -bottom-px h-0.5 rounded-full bg-sg-primary" />}
-          </button>
-        ))}
-      </div>
-      {tab === 0 && (
-        <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
-          <Card hotspot={{ label: "Board-ready output in one click — no manual assembly.", className: "-right-1 -top-1" }}>
-            <div className="flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg sg-gradient-bg">
-                <ShieldIcon />
-              </div>
-              <div>
-                <p className="text-sm font-semibold text-sg-text">Weekly Compliance Report</p>
-                <p className="text-[11px] text-sg-muted">Score, findings, roadmap progress</p>
-              </div>
-            </div>
-            <span className="mt-3 inline-flex items-center gap-1.5 rounded-lg border border-sg-primary/30 px-3 py-1.5 text-xs font-semibold text-sg-primary">
-              <FileDown className="h-3.5 w-3.5" /> Generate
-            </span>
-          </Card>
-          <Card>
-            <div className="flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-sg-tint">
-                <BarChart3 className="h-5 w-5 text-sg-primary" strokeWidth={1.8} />
-              </div>
-              <div>
-                <p className="text-sm font-semibold text-sg-text">Board Summary Pack</p>
-                <p className="text-[11px] text-sg-muted">Plain-English posture for directors</p>
-              </div>
-            </div>
-            <span className="mt-3 inline-flex items-center gap-1.5 rounded-lg border border-sg-primary/30 px-3 py-1.5 text-xs font-semibold text-sg-primary">
-              <FileDown className="h-3.5 w-3.5" /> Generate
-            </span>
-          </Card>
-        </div>
-      )}
-      {tab === 1 && (
-        <div className="space-y-2">
-          {["Weekly Compliance Report — 30 Jun 2026", "Weekly Compliance Report — 23 Jun 2026", "Board Summary — Q2 2026"].map((r) => (
-            <div key={r} className="flex items-center justify-between rounded-xl border border-[#E9E3F5] bg-white p-3.5">
-              <p className="text-xs font-medium text-sg-text">{r}</p>
-              <Chip tone="green">Ready</Chip>
-            </div>
-          ))}
-        </div>
-      )}
-      {tab === 2 && (
-        <div className="flex items-center gap-3 rounded-xl border border-[#E9E3F5] bg-white p-4">
-          <Clock className="h-4 w-4 text-sg-primary" />
-          <p className="text-xs text-sg-muted">Weekly Compliance Report — every Monday, 08:00, to <span className="font-medium text-sg-text">it@democompany.example</span></p>
-        </div>
-      )}
-    </div>
-  );
-}
-
-function ShieldIcon() {
-  return (
-    <svg viewBox="0 0 100 100" className="h-5 w-5" aria-hidden="true">
-      <path d="M50 4 L88 19 V50 C88 74 72 88 50 96 C28 88 12 74 12 50 V19 Z" fill="none" stroke="#fff" strokeWidth="8" />
-    </svg>
   );
 }
 
@@ -564,11 +395,7 @@ export const SCREEN_META = [
   { id: "dashboard", label: "Dashboard", group: "OVERVIEW", icon: LayoutDashboard },
   { id: "monitoring", label: "Monitoring", group: "OVERVIEW", icon: Activity },
   { id: "alerts", label: "Alert Center", group: "OVERVIEW", icon: Bell },
-  { id: "policies", label: "Policies", group: "COMPLIANCE", icon: FileText },
-  { id: "risks", label: "Risk Register", group: "COMPLIANCE", icon: ShieldAlert },
-  { id: "evidence", label: "Evidence", group: "COMPLIANCE", icon: FolderLock },
   { id: "frameworks", label: "Frameworks", group: "COMPLIANCE", icon: Layers },
-  { id: "reports", label: "Reports", group: "COMPLIANCE", icon: BarChart3 },
   { id: "advisor", label: "Virtual Advisor", group: "AI", icon: Bot },
 ] as const;
 
@@ -579,11 +406,7 @@ export function TourScreen({ id }: { id: ScreenId }) {
     case "dashboard": return <DashboardScreen />;
     case "monitoring": return <MonitoringScreen />;
     case "alerts": return <AlertsScreen />;
-    case "policies": return <PoliciesScreen />;
-    case "risks": return <RisksScreen />;
-    case "evidence": return <EvidenceScreen />;
     case "frameworks": return <FrameworksScreen />;
-    case "reports": return <ReportsScreen />;
     case "advisor": return <AdvisorScreen />;
   }
 }

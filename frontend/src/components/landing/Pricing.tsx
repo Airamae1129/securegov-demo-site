@@ -13,7 +13,7 @@ export function Pricing() {
           dark
           eyebrow="PRICING"
           title="Expert solutions, priced for non-experts"
-          sub="Start free. Upgrade when your programme grows. No checkout here — talk to a human first."
+          sub="Start free. Upgrade when your programme grows."
           align="center"
         />
         <div className="mx-auto mt-14 grid max-w-5xl grid-cols-1 gap-6 md:grid-cols-3">

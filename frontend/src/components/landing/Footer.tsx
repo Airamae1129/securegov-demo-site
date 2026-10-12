@@ -11,7 +11,7 @@ export function Footer() {
           <div className="md:col-span-2">
             <Logo variant="white" />
             <p className="mt-5 max-w-sm text-sm leading-relaxed text-sg-violet-300/70">
-              AI-powered governance automation for policies, risks, controls and evidence. Built in Ireland for Europe. No cybersecurity team? No problem.
+              AI-powered governance automation for policies, risks, controls and evidence for businesses operating in Europe. No cybersecurity team? No problem.
             </p>
             <div className="mt-6 space-y-2 text-sm text-sg-violet-300/80">
               <a href={`https://${site.url}`} className="flex items-center gap-2 transition-colors hover:text-white"><Globe className="h-4 w-4" /> {site.url}</a>

@@ -18,7 +18,7 @@ export const nav = [
 ];
 
 export const hero = {
-  eyebrow: "BUILT IN IRELAND · FOR EUROPEAN SMES",
+  eyebrow: "BUILT IN EUROPE · FOR EUROPEAN BUSINESSES",
   lines: ["Automated Governance.", "Instant Compliance.", "Audit-Ready."],
   sub: "SecureGov is AI-powered governance automation for policies, risks, controls and evidence — built for European SMEs and ready for NIS2, the Cyber Resilience Act and ISO 27001.",
   tagline: "No cybersecurity team? No problem.",
@@ -45,23 +45,10 @@ export const modules = [
   { id: "01", name: "Requirements Consolidation", desc: "One integrated control framework across every regulation that applies to you." },
   { id: "02", name: "Cyber Risk & Readiness Dashboard", desc: "Honest scores, live posture, and what to fix first." },
   { id: "03", name: "Strategy Builder & Roadmap Generator", desc: "A tailored 12-month plan, sequenced by impact and effort." },
-  { id: "04", name: "Supplier Risk Assessment Portal", desc: "Smart third-party assessments and alerts across your supply chain." },
-  { id: "05", name: "Virtual Cyber Advisor", desc: "An AI compliance chatbot that answers in plain language, any time." },
+  { id: "04", name: "Virtual Cyber Advisor", desc: "An AI compliance chatbot that answers in plain language, any time." },
 ];
 
 export const capabilities = [
-  {
-    id: "policy",
-    title: "Policy Automation",
-    desc: "Generate, update and version-control policies. No blank pages, no stale PDFs.",
-    anim: "policy",
-  },
-  {
-    id: "risk",
-    title: "Risk Register & Controls",
-    desc: "A live register of risks linked to the controls that treat them.",
-    anim: "risk",
-  },
   {
     id: "evidence",
     title: "Audit Evidence Hub",
@@ -81,12 +68,6 @@ export const capabilities = [
     anim: "ai",
   },
   {
-    id: "supplier",
-    title: "Supplier Risk Portal",
-    desc: "Third-party risk with smart assessments and alerts.",
-    anim: "supplier",
-  },
-  {
     id: "strategy",
     title: "Strategy & Roadmap Generator",
     desc: "A tailored strategy aligned to EU regulation, not a generic checklist.",
@@ -104,72 +85,96 @@ export const howItWorks = [
 
 export const useCases = [
   {
-    id: "iso",
-    title: "ISO 27001 readiness in 30 days",
-    problem: "Certification feels like a six-month consulting project.",
-    solution: "SecureGov structures your Statement of Applicability, tracks control progress and shows a readiness ring filling day by day.",
+    id: "certification",
+    title: "Certification readiness in 30 days",
+    tags: ["CyFun", "ISO 27001"],
+    problem: "Certification feels like a six-month consulting project — and it isn't obvious whether CyFun or ISO 27001 is the right fit.",
+    solution: "Pick CyFun or ISO 27001 and SecureGov builds the control set for you, then tracks every control until you're ready for the assessor.",
+    points: [
+      "CyFun Basic, Important or Essential — or ISO 27001",
+      "Statement of Applicability structured for you",
+      "Readiness rises day by day as controls close",
+    ],
     stat: "30 days",
-    statLabel: "to audit-ready structure",
+    statLabel: "to an audit-ready structure",
   },
   {
-    id: "nis2",
-    title: "NIS2 gap analysis, national laws included",
-    problem: "NIS2 reads differently in Belgium, Austria and Germany.",
-    solution: "Applicability rules decide which national transposition applies, then a gap heat map shows exactly where you stand.",
-    stat: "9 regimes",
-    statLabel: "mapped to one framework",
+    id: "gap",
+    title: "Gap analysis across every regulation",
+    tags: ["NIS2", "DORA", "GDPR", "CRA"],
+    problem: "NIS2, DORA, GDPR, sector rules, national laws and the Cyber Resilience Act overlap — and read differently in every country.",
+    solution: "Applicability rules work out which regulations and national laws apply to you, then one gap heat map shows exactly where you stand.",
+    points: [
+      "NIS2 and its national transpositions",
+      "DORA, GDPR and sector-specific rules",
+      "Cyber Resilience Act for products with digital elements",
+    ],
+    stat: "1 heat map",
+    statLabel: "across every regime that applies",
   },
   {
-    id: "policy",
-    title: "Automated policy updates",
-    problem: "Policies drift out of date the moment they are signed.",
-    solution: "Version-controlled policies update as regulations change — v1 → v2 with a clear diff and an owner for every change.",
-    stat: "v1 → v2",
-    statLabel: "with full audit trail",
+    id: "self-assessment",
+    title: "Guided self-assessment",
+    tags: ["Plain language"],
+    problem: "Security questionnaires are written for experts, not for the people actually running the business.",
+    solution: "Plain-language questions with help at every step, and an honest score at the end — what's proven, what's missing and what hasn't been checked yet.",
+    points: [
+      "Seven questions build your risk profile",
+      "Virtual Cyber Advisor explains each requirement",
+      "No cybersecurity team needed",
+    ],
+    stat: "~10 min",
+    statLabel: "to your first risk profile",
   },
   {
-    id: "audit",
-    title: "Audit preparation with one click",
-    problem: "Audits mean weeks of hunting for evidence.",
-    solution: "Generate a complete audit pack — policies, evidence, control status — as a single export, whenever you need it.",
-    stat: "1 click",
-    statLabel: "to a full audit pack",
+    id: "roadmap",
+    title: "A 12-month roadmap you can follow",
+    tags: ["Strategy"],
+    problem: "Knowing your gaps isn't a plan — and the board wants priorities, owners and dates.",
+    solution: "SecureGov turns every gap into a prioritised 12-month roadmap, sequenced by impact and effort, that your board can actually read.",
+    points: [
+      "Actions sequenced by impact and effort",
+      "Owners and milestones for every step",
+      "Progress tracked month by month",
+    ],
+    stat: "12 months",
+    statLabel: "prioritised, actionable plan",
   },
 ];
 
 export const securityPoints = [
-  { title: "ISO 27001 & ISO 42001 certified", desc: "Certified information security and AI management systems." },
-  { title: "Encryption at rest and in transit", desc: "Your data is protected end to end." },
-  { title: "Role-based access control", desc: "Permissions decide exactly what each user sees." },
-  { title: "Full audit trails", desc: "Every action is logged and reviewable." },
-  { title: "Hosted in EU data centres", desc: "Your data stays in Europe." },
-  { title: "GDPR by design", desc: "Privacy built in, not bolted on." },
+  { title: "Platform Security", desc: "SecureGov enforces end-to-end encryption and role-based access controls to ensure only authorised users can access sensitive governance data." },
+  { title: "Data Protection & Privacy", desc: "All customer data is processed and stored within EU jurisdictions, following strict GDPR-aligned privacy and retention principles." },
+  { title: "Governance & Compliance", desc: "The platform is designed around ISO 27001, ISO 42001, NIS2 and GDPR governance standards, providing mapped controls and audit-ready documentation." },
+  { title: "Operational Integrity", desc: "SecureGov maintains high-availability infrastructure with automated backups and tamper-resistant evidence storage to protect operational continuity." },
+  { title: "AI Safety & Governance", desc: "AI features operate within strict guardrails, never training on customer data and always requiring human validation for generated governance artefacts." },
+  { title: "Trust & Reliability", desc: "SecureGov follows a transparent governance model with clear incident reporting, enterprise-grade reliability and dedicated compliance support." },
 ];
 
-export const securityTagline = "Built in Ireland for Europe. AI-driven, validated by human experts.";
+export const securityTagline = "Built in Europe. AI-driven, validated by human experts.";
 
 export const pricing = [
   {
     name: "Starter",
     price: "Free",
     desc: "See where you stand today.",
-    features: ["Readiness dashboard", "Basic AI advisor", "Self-assessment", "1 framework"],
+    features: ["1 entity (your organisation)", "Readiness dashboard", "Basic AI advisor", "Self-assessment", "1 framework"],
     cta: "Request Full Demo",
     highlighted: false,
   },
   {
     name: "Professional",
-    price: "from €29/month",
-    desc: "The full platform for your team.",
-    features: ["All five modules", "Multiple frameworks", "Supplier risk portal", "Strategy & roadmap generator"],
+    price: "from €99/month",
+    desc: "The full platform for your whole organisation.",
+    features: ["All 4 modules", "Your whole organisation (1 entity)", "Multiple frameworks", "Strategy & roadmap generator"],
     cta: "Request Full Demo",
     highlighted: true,
   },
   {
     name: "Enterprise",
-    price: "Contact us",
-    desc: "For groups and regulated sectors.",
-    features: ["Multi-entity", "Human expert guidance", "Audit prep & policy customisation", "Priority support"],
+    price: "from €499/month",
+    desc: "For groups of companies.",
+    features: ["Group of companies (multi-entity)", "Expert guidance", "Audit prep", "Internal audit support"],
     cta: "Talk to us",
     highlighted: false,
   },
@@ -226,13 +231,13 @@ export const supportChat = {
       id: "frameworks",
       q: "Which regulations and frameworks do you cover?",
       a: "ISO 27001, ISO 42001, NIS2 (including national laws like the Belgian NIS2 Law, Austrian NIS Act and KRITIS), CyFun, GDPR, the Cyber Resilience Act and DORA. They're all consolidated into a single control framework, so one piece of evidence can count across several regulations.",
-      keywords: ["regulation", "framework", "cover", "do you support", "dora", "gdpr", "cra", "cyber resilience", "cyfun", "42001", "kritis", "standard"],
+      keywords: ["regulation", "framework", "cover", "do you support", "dora", "gdpr", "cra", "cyber resilience", "42001", "kritis", "standard"],
       action: "features",
     },
     {
       id: "price",
       q: "How much does SecureGov cost?",
-      a: "Starter is free and includes the readiness dashboard, a basic AI advisor, self-assessment and one framework. Professional starts from €29/month with all five modules and multiple frameworks. Enterprise is priced on request for groups and regulated sectors.",
+      a: "Starter is free for one entity, with the readiness dashboard, a basic AI advisor, self-assessment and one framework. Professional starts from €99/month with all 4 modules and multiple frameworks for your whole organisation. Enterprise starts from €499/month for groups of companies, with expert guidance, audit prep and internal audit support.",
       keywords: ["cost", "price", "pricing", "how much", "fee", "€", "euro", "plans", "free", "subscription", "cheap", "expensive", "per month"],
       action: "pricing",
     },
@@ -253,15 +258,15 @@ export const supportChat = {
     {
       id: "security",
       q: "Is our data secure? Where is it hosted?",
-      a: "Yes. SecureGov is ISO 27001 and ISO 42001 certified, encrypts data at rest and in transit, uses role-based access control and keeps full audit trails. Everything is hosted in EU data centres and built GDPR-by-design — your data stays in Europe.",
+      a: "Yes. SecureGov enforces end-to-end encryption and role-based access controls, and all customer data is processed and stored within EU jurisdictions under GDPR-aligned privacy and retention principles. Evidence storage is tamper-resistant with automated backups, and AI features never train on customer data.",
       keywords: ["secure", "safe", "data", "hosted", "hosting", "encrypt", "privacy", "data centre", "data center", "stored"],
       action: "security",
     },
     {
       id: "iso",
-      q: "Can SecureGov help us get ISO 27001 ready?",
-      a: "Yes. SecureGov structures your Statement of Applicability, tracks control progress and generates a complete audit pack — policies, evidence and control status — in one click. Most teams reach an audit-ready structure in about 30 days. The certification itself is still issued by an accredited certification body.",
-      keywords: ["iso 27001", "27001", "certif", "audit", "statement of applicability", "soa"],
+      q: "Can SecureGov help us get certification ready?",
+      a: "Yes — ISO 27001 or CyFun. SecureGov builds your control set, structures your Statement of Applicability and tracks every control as it closes. Most teams reach an audit-ready structure in about 30 days. The certification itself is still issued by an accredited certification body.",
+      keywords: ["iso 27001", "27001", "cyfun", "certif", "audit", "statement of applicability", "soa"],
       action: "use-cases",
     },
     {

@@ -3,7 +3,7 @@ import { motion } from "motion/react";
 import { useCases } from "@/content";
 import { SectionHeading } from "./SectionHeading";
 import { Reveal } from "./Reveal";
-import { ArrowLeftRight } from "lucide-react";
+import { ArrowLeftRight, CheckCircle2 } from "lucide-react";
 
 export function UseCases() {
   const [flipped, setFlipped] = useState<string | null>(null);
@@ -25,7 +25,7 @@ export function UseCases() {
                   data-testid={`use-case-card-${u.id}`}
                   onClick={() => setFlipped(isFlipped ? null : u.id)}
                   aria-pressed={isFlipped}
-                  className="group relative block h-[340px] w-full text-left [perspective:1200px]"
+                  className="group relative block h-[440px] w-full text-left [perspective:1200px]"
                 >
                   <motion.div
                     className="relative h-full w-full [transform-style:preserve-3d]"
@@ -35,7 +35,12 @@ export function UseCases() {
                     {/* front */}
                     <div className="absolute inset-0 flex flex-col rounded-2xl border border-[#E9E3F5] bg-white p-6 shadow-[0_8px_32px_rgba(34,10,67,0.06)] [backface-visibility:hidden]">
                       <p className="font-heading text-4xl font-extrabold text-sg-tint">0{i + 1}</p>
-                      <h3 className="mt-4 font-heading text-lg font-bold leading-snug text-sg-text">{u.title}</h3>
+                      <div className="mt-3 flex flex-wrap gap-1.5">
+                        {u.tags.map((t) => (
+                          <span key={t} className="rounded-full bg-sg-tint px-2.5 py-0.5 font-mono text-[10px] font-semibold text-sg-primary">{t}</span>
+                        ))}
+                      </div>
+                      <h3 className="mt-3 font-heading text-lg font-bold leading-snug text-sg-text">{u.title}</h3>
                       <p className="mt-3 text-sm leading-relaxed text-sg-muted">{u.problem}</p>
                       <span className="mt-auto inline-flex items-center gap-2 text-xs font-semibold text-sg-primary">
                         <ArrowLeftRight className="h-3.5 w-3.5" /> How SecureGov solves it
@@ -44,8 +49,15 @@ export function UseCases() {
                     {/* back */}
                     <div className="absolute inset-0 flex flex-col rounded-2xl sg-gradient-bg p-6 text-white [backface-visibility:hidden] [transform:rotateY(180deg)]">
                       <p className="sg-eyebrow text-sg-violet-400">THE FIX</p>
-                      <p className="mt-4 text-sm leading-relaxed text-sg-violet-300">{u.solution}</p>
-                      <div className="mt-auto">
+                      <p className="mt-3 text-sm leading-relaxed text-sg-violet-300">{u.solution}</p>
+                      <ul className="mt-4 space-y-2">
+                        {u.points.map((pt) => (
+                          <li key={pt} className="flex items-start gap-2 text-xs leading-snug text-white/90">
+                            <CheckCircle2 className="mt-px h-3.5 w-3.5 shrink-0 text-sg-violet-400" />{pt}
+                          </li>
+                        ))}
+                      </ul>
+                      <div className="mt-auto pt-4">
                         <p className="font-heading text-3xl font-extrabold">{u.stat}</p>
                         <p className="text-xs text-sg-violet-300/80">{u.statLabel}</p>
                       </div>
