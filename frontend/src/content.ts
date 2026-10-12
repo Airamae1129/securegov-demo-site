@@ -286,8 +286,8 @@ export const supportChat = {
 };
 
 export const overviewVideo = {
-  src: "/video/securegov-overview.mp4",
-  poster: "/video/securegov-overview-poster.jpg",
+  src: "/video/securegov-overview-v2.mp4",
+  poster: "/video/securegov-overview-v2-poster.jpg",
   cta: "Watch the product overview",
   title: "SecureGov · Product overview",
 };
