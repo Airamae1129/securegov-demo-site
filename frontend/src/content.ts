@@ -188,10 +188,10 @@ export const cta = {
 };
 
 export const roadmapItems = [
-  { title: "Automated control testing", quarter: "Q3 2026" },
-  { title: "AI-driven audit remediation", quarter: "Q4 2026" },
-  { title: "Multi-framework mapping", quarter: "Q1 2027" },
-  { title: "Continuous compliance scoring", quarter: "Q2 2027" },
+  { title: "Automated control testing", quarter: "Q2 2027" },
+  { title: "AI-driven audit remediation", quarter: "Q2 2027" },
+  { title: "Multi-framework mapping", quarter: "Q3 2027" },
+  { title: "Continuous compliance scoring", quarter: "Q4 2027" },
 ];
 
 export const chatScripts: Record<string, { q: string; a: string }> = {
