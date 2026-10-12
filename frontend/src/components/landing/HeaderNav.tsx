@@ -9,7 +9,9 @@ export function HeaderNav({ onDemo }: { onDemo: () => void }) {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
+    // Hysteresis: separate on/off thresholds so smooth-scroll hovering near one value can't flicker the bar.
+    const onScroll = () => setScrolled((s) => (s ? window.scrollY > 20 : window.scrollY > 60));
+    onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
@@ -22,15 +24,17 @@ export function HeaderNav({ onDemo }: { onDemo: () => void }) {
   return (
     <header
       data-testid="main-nav"
-      className={`fixed top-0 left-0 right-0 z-[80] transition-all duration-500 ${
+      className={`fixed top-0 left-0 right-0 z-[80] transition-[padding] duration-500 ${
         scrolled ? "py-2" : "py-4"
       }`}
     >
+      {/* Radius and border width never change; only colours, spacing and width animate, so the
+          bar fades in as a pill instead of popping in as a square on scroll. */}
       <div
-        className={`mx-auto flex max-w-[1320px] items-center justify-between px-5 transition-all duration-500 md:px-8 ${
+        className={`flex items-center justify-between rounded-2xl border px-5 transition-[background-color,border-color,max-width,margin,padding] duration-500 ease-out md:mx-auto ${
           scrolled
-            ? "mx-3 rounded-2xl border border-sg-violet-400/20 bg-sg-ink-950/80 py-2.5 backdrop-blur-2xl md:mx-auto md:px-6 lg:max-w-[1240px]"
-            : ""
+            ? "mx-3 max-w-[1320px] border-sg-violet-400/20 bg-sg-ink-950/80 py-2.5 backdrop-blur-2xl md:px-6 lg:max-w-[1240px]"
+            : "mx-0 max-w-[1320px] border-transparent bg-transparent py-0 md:px-8"
         }`}
       >
         <button
