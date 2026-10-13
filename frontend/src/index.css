@@ -17,6 +17,8 @@
     --color-sg-primary-600: #5E30A3;
     --color-sg-violet-400: #A98BF0;
     --color-sg-violet-300: #CFC4E4;
+    /* Body copy on dark/gradient backgrounds — lighter than violet-300 for readable contrast. */
+    --color-sg-body-dark: #EEEAF8;
     --color-sg-tint: #EEE9FF;
     --color-sg-canvas: #FAF8FC;
     --color-sg-text: #1B1523;

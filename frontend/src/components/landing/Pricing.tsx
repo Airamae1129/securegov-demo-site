@@ -33,11 +33,11 @@ export function Pricing() {
                   </span>
                 )}
                 <h3 className="font-heading text-xl font-bold text-white">{p.name}</h3>
-                <p className="mt-1 text-xs text-sg-violet-300/80">{p.desc}</p>
+                <p className="mt-1 text-xs text-sg-body-dark/85">{p.desc}</p>
                 <p className="mt-5 font-heading text-3xl font-extrabold text-white">{p.price}</p>
                 <ul className="mt-6 flex-1 space-y-3">
                   {p.features.map((f) => (
-                    <li key={f} className="flex items-start gap-2.5 text-sm text-sg-violet-300">
+                    <li key={f} className="flex items-start gap-2.5 text-sm text-sg-body-dark">
                       <BadgeCheck className="mt-0.5 h-4 w-4 shrink-0 text-sg-violet-400" />{f}
                     </li>
                   ))}

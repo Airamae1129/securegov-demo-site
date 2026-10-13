@@ -24,9 +24,11 @@ export function HeaderNav({ onDemo }: { onDemo: () => void }) {
   return (
     <header
       data-testid="main-nav"
-      className={`fixed top-0 left-0 right-0 z-[80] transition-[padding] duration-500 ${
+      className={`fixed left-0 right-0 z-[80] transition-[padding,top] duration-500 ${
         scrolled ? "py-2" : "py-4"
       }`}
+      // Sits below the cookie consent bar while it's showing (see CookieBanner).
+      style={{ top: "var(--sg-consent-h, 0px)" }}
     >
       {/* Radius and border width never change; only colours, spacing and width animate, so the
           bar fades in as a pill instead of popping in as a square on scroll. */}

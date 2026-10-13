@@ -67,14 +67,14 @@ export function CtaSection() {
                 href="#cta"
                 onClick={(e) => e.preventDefault()}
                 className="sg-glass group flex items-center gap-4 rounded-2xl p-5 transition-colors hover:border-sg-violet-400/50"
-                title="Overview PDF coming soon"
+                title="Request the overview via the form"
               >
                 <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-sg-primary">
                   <FileDown className="h-5 w-5 text-white" />
                 </span>
                 <div>
                   <p className="text-sm font-semibold text-white">Download the SecureGov overview</p>
-                  <p className="text-xs text-sg-violet-300/70">PDF — coming soon, request it in the form</p>
+                  <p className="text-xs text-sg-body-dark/85">Request it via the form.</p>
                 </div>
               </a>
             </Reveal>
@@ -84,7 +84,7 @@ export function CtaSection() {
                 <a data-testid="cta-email-link" href={`mailto:${site.email}`} className="flex items-center gap-2 text-sm text-sg-violet-300 transition-colors hover:text-white">
                   <Mail className="h-4 w-4" /> {site.email}
                 </a>
-                <a data-testid="cta-phone-link" href={`tel:${site.phone}`} className="flex items-center gap-2 text-sm text-sg-violet-300 transition-colors hover:text-white">
+                <a data-testid="cta-phone-link" href={`tel:${site.phoneHref}`} className="flex items-center gap-2 text-sm text-sg-violet-300 transition-colors hover:text-white">
                   <Phone className="h-4 w-4" /> {site.phone}
                 </a>
               </div>
@@ -100,12 +100,12 @@ export function CtaSection() {
                   <CheckCircle2 className="h-8 w-8 text-white" />
                 </span>
                 <h3 className="mt-6 font-heading text-2xl font-bold text-white">Request received</h3>
-                <p className="mt-3 max-w-xs text-sm leading-relaxed text-sg-violet-300">{msg}</p>
+                <p className="mt-3 max-w-xs text-sm leading-relaxed text-sg-body-dark">{msg}</p>
               </div>
             ) : (
               <form onSubmit={submit} data-testid="demo-request-form">
                 <h3 className="font-heading text-xl font-bold text-white">Book a live demo</h3>
-                <p className="mt-1 text-xs text-sg-violet-300/70">Thirty minutes, your regulations, your questions.</p>
+                <p className="mt-1 text-xs text-sg-body-dark/85">Thirty minutes, your regulations, your questions.</p>
 
                 <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
                   <div>

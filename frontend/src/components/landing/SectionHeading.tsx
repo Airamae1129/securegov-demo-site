@@ -20,7 +20,7 @@ export function SectionHeading({ eyebrow, title, sub, dark = false, align = "lef
         {title}
       </h2>
       {sub && (
-        <p className={`mt-5 text-base leading-relaxed md:text-lg ${dark ? "text-sg-violet-300" : "text-sg-muted"}`}>
+        <p className={`mt-5 text-base leading-relaxed md:text-lg ${dark ? "text-sg-body-dark" : "text-sg-muted"}`}>
           {sub}
         </p>
       )}

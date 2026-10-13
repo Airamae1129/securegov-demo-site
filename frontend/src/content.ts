@@ -4,7 +4,8 @@ export const site = {
   country: "Ireland",
   url: "securegov.eu",
   email: "info@securegov.eu",
-  phone: "+353-046-9246769",
+  phone: "+353 (046) 924 6769",
+  phoneHref: "+353469246769",
   year: new Date().getFullYear(),
 };
 

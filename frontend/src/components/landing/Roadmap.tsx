@@ -52,7 +52,7 @@ export function Roadmap() {
 
         <Reveal delay={0.2} className="mt-16">
           {done ? (
-            <p data-testid="notify-success" className="inline-flex items-center gap-2 text-sm text-sg-violet-300">
+            <p data-testid="notify-success" className="inline-flex items-center gap-2 text-sm text-sg-body-dark">
               <CheckCircle2 className="h-4 w-4 text-sg-green" /> Noted — we'll let you know when these ship.
             </p>
           ) : (

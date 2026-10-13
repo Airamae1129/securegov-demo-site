@@ -49,7 +49,7 @@ export function UseCases() {
                     {/* back */}
                     <div className="absolute inset-0 flex flex-col rounded-2xl sg-gradient-bg p-6 text-white [backface-visibility:hidden] [transform:rotateY(180deg)]">
                       <p className="sg-eyebrow text-sg-violet-400">THE FIX</p>
-                      <p className="mt-3 text-sm leading-relaxed text-sg-violet-300">{u.solution}</p>
+                      <p className="mt-3 text-sm leading-relaxed text-sg-body-dark">{u.solution}</p>
                       <ul className="mt-4 space-y-2">
                         {u.points.map((pt) => (
                           <li key={pt} className="flex items-start gap-2 text-xs leading-snug text-white/90">
@@ -59,7 +59,7 @@ export function UseCases() {
                       </ul>
                       <div className="mt-auto pt-4">
                         <p className="font-heading text-3xl font-extrabold">{u.stat}</p>
-                        <p className="text-xs text-sg-violet-300/80">{u.statLabel}</p>
+                        <p className="text-xs text-sg-body-dark/85">{u.statLabel}</p>
                       </div>
                     </div>
                   </motion.div>

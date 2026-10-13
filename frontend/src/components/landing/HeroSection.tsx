@@ -72,7 +72,7 @@ export function HeroSection({ started, onDemo }: { started: boolean; onDemo: () 
               </span>
             ))}
           </h1>
-          <p className="mt-7 max-w-xl text-base leading-relaxed text-sg-violet-300 md:text-lg">{hero.sub}</p>
+          <p className="mt-7 max-w-xl text-base leading-relaxed text-sg-body-dark md:text-lg">{hero.sub}</p>
           <p className="mt-4 font-mono text-sm tracking-tight text-sg-electric">{hero.tagline}</p>
 
           <div className="mt-9 flex flex-wrap items-center gap-4">

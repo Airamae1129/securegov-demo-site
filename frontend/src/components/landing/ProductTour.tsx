@@ -150,7 +150,7 @@ export function ProductTour() {
           <h3 className="mt-3 text-center font-heading text-2xl font-bold text-white sm:text-3xl">
             See SecureGov in action
           </h3>
-          <p className="mx-auto mt-3 max-w-xl text-center text-sm text-sg-violet-300/80">
+          <p className="mx-auto mt-3 max-w-xl text-center text-sm text-sg-body-dark/90">
             Onboard, consolidate, measure, act and prove — the whole journey in one short overview.
           </p>
           <div className="mt-8 overflow-hidden rounded-2xl border border-sg-violet-400/30 shadow-[0_0_80px_rgba(124,77,219,0.35)]">

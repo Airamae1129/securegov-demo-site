@@ -200,7 +200,7 @@ export function SupportChat() {
                     className={`max-w-[85%] whitespace-pre-line rounded-2xl px-3.5 py-2.5 text-sm leading-relaxed ${
                       m.from === "user"
                         ? "rounded-br-md bg-sg-primary text-white"
-                        : "rounded-bl-md border border-sg-violet-400/15 bg-white/[0.06] text-sg-violet-300"
+                        : "rounded-bl-md border border-sg-violet-400/15 bg-white/[0.06] text-sg-body-dark"
                     }`}
                   >
                     {m.text}

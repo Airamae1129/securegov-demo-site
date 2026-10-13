@@ -28,7 +28,7 @@ export function ProblemStory() {
         });
       });
       const tl = gsap.timeline({
-        scrollTrigger: { trigger: ref.current, start: "top top", end: "+=1700", scrub: 1, pin: true },
+        scrollTrigger: { trigger: ref.current, start: "top top", end: "+=850", scrub: 0.8, pin: true },
       });
       tl.to(chips, { opacity: 1, duration: 0.15, stagger: 0.04 })
         .to(chips, {
@@ -49,14 +49,14 @@ export function ProblemStory() {
   return (
     <section data-testid="problem-section" className="sg-gradient-bg relative overflow-hidden">
       <div className="sg-hex-grid absolute inset-0 opacity-60" aria-hidden="true" />
-      <div ref={ref} className="relative flex min-h-screen flex-col items-center justify-center px-5 py-24">
+      <div ref={ref} className="relative flex min-h-screen flex-col items-center justify-center px-5 py-16 md:py-20">
         <SectionHeading dark eyebrow={problem.eyebrow} title={problem.title} sub={problem.body} align="center" />
 
-        <div className="relative mt-14 flex h-[300px] w-full max-w-4xl items-center justify-center md:h-[360px]">
+        <div className="relative mt-8 flex h-[220px] w-full max-w-4xl items-center justify-center md:h-[280px]">
           {simple ? (
             <div className="flex max-w-2xl flex-wrap items-center justify-center gap-3">
               {problem.chips.map((c) => (
-                <span key={c} className="rounded-full border border-sg-violet-400/30 bg-sg-ink-900/70 px-4 py-2 text-sm text-sg-violet-300">
+                <span key={c} className="rounded-full border border-sg-violet-400/30 bg-sg-ink-900/70 px-4 py-2 text-sm text-sg-body-dark">
                   {c}
                 </span>
               ))}
@@ -81,11 +81,11 @@ export function ProblemStory() {
         </div>
 
         <div className={`ps-caption text-center ${simple ? "" : "opacity-0"}`}>
-          <div className="mb-4 flex items-center justify-center gap-1 font-heading text-2xl font-bold text-sg-violet-400" aria-hidden="true">
+          <div className="mb-3 flex items-center justify-center gap-1 font-heading text-2xl font-bold text-sg-violet-400" aria-hidden="true">
             <span className="sg-chev">&gt;</span><span className="sg-chev">&gt;</span><span className="sg-chev">&gt;</span><span className="sg-chev">&gt;</span>
           </div>
           <p className="font-heading text-3xl font-extrabold text-white md:text-4xl">{problem.resolution}</p>
-          <p className="mx-auto mt-3 max-w-xl text-sg-violet-300">{problem.resolutionSub}</p>
+          <p className="mx-auto mt-3 max-w-xl text-sg-body-dark">{problem.resolutionSub}</p>
         </div>
       </div>
     </section>

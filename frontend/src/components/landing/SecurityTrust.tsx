@@ -51,7 +51,7 @@ export function SecurityTrust() {
                       </span>
                       <div>
                         <p className="text-sm font-semibold text-white">{p.title}</p>
-                        <p className="mt-0.5 text-xs leading-relaxed text-sg-violet-300/80">{p.desc}</p>
+                        <p className="mt-0.5 text-xs leading-relaxed text-sg-body-dark/85">{p.desc}</p>
                       </div>
                     </div>
                   </Reveal>
