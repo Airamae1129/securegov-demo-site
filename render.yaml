@@ -19,6 +19,18 @@ services:
         value: securegov
       - key: CORS_ORIGINS
         value: "*"
+      # Admin side (/admin): signs the staff session cookie; Render generates a random value once.
+      - key: JWT_SECRET
+        generateValue: true
+      - key: COOKIE_SECURE
+        value: "true"
+      # First administrator, created on startup only while no staff accounts exist.
+      - key: ADMIN_EMAIL
+        sync: false # your admin sign-in email
+      - key: ADMIN_PASSWORD
+        sync: false # a strong password (10+ characters); change it later under My account
+      - key: ADMIN_NAME
+        value: Administrator
 
   # Vite/React website, served as a static site
   - type: web

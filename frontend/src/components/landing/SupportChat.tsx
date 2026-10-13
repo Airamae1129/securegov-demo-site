@@ -2,12 +2,38 @@ import { useEffect, useRef, useState, type FormEvent } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { MessageCircle, X, Send, UserRound, ArrowRight, Loader2, Bot } from "lucide-react";
 import { site, supportChat } from "@/content";
-import { apiPost, ApiError } from "@/lib/api";
+import { apiGet, apiPost, ApiError } from "@/lib/api";
 import { scrollToId } from "@/lib/lenis";
 
 type Faq = (typeof supportChat.faqs)[number];
-interface Msg { id: number; from: "bot" | "user"; text: string; action?: string | null }
-interface SupportResponse { id: string; message: string }
+// `staff` marks a reply written by a SecureGov team member in the admin inbox.
+interface Msg { id: number; from: "bot" | "user"; text: string; action?: string | null; staff?: string }
+interface SupportResponse { id: string; message: string; thread_token: string }
+interface ThreadReply { id: string; body: string; by_name: string; at: string }
+interface ThreadResponse { id: string; message: string; created_at: string; replies: ThreadReply[] }
+
+// The visitor's last "talk to a person" conversation, so staff replies can reach this
+// browser later. `seen` counts replies already shown, for the unread badge.
+interface Thread { id: string; token: string; seen: number }
+const THREAD_KEY = "sg-chat-thread";
+
+function readThread(): Thread | null {
+  try {
+    const t = JSON.parse(localStorage.getItem(THREAD_KEY) ?? "null") as Thread | null;
+    return t && typeof t.id === "string" && typeof t.token === "string" ? { ...t, seen: t.seen ?? 0 } : null;
+  } catch {
+    return null;
+  }
+}
+
+function writeThread(t: Thread | null) {
+  try {
+    if (t) localStorage.setItem(THREAD_KEY, JSON.stringify(t));
+    else localStorage.removeItem(THREAD_KEY);
+  } catch {
+    // storage blocked: replies still show while this page stays open
+  }
+}
 
 const actionLabels: Record<string, string> = {
   "product-tour": "Take the product tour",
@@ -55,6 +81,60 @@ export function SupportChat() {
   const [sending, setSending] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const [thread, setThread] = useState<Thread | null>(readThread);
+  const [threadMsg, setThreadMsg] = useState("");
+  const [replies, setReplies] = useState<ThreadReply[]>([]);
+  const shown = useRef(new Set<string>());
+
+  // Poll the visitor's conversation for staff replies: often while the chat is open, rarely while closed.
+  const threadId = thread?.id;
+  const threadToken = thread?.token;
+  useEffect(() => {
+    if (!threadId || !threadToken) return;
+    let stopped = false;
+    const load = async () => {
+      try {
+        const t = await apiGet<ThreadResponse>(`/support-messages/${threadId}/thread?token=${encodeURIComponent(threadToken)}`);
+        if (stopped) return;
+        setThreadMsg(t.message);
+        setReplies(t.replies);
+      } catch (err) {
+        if (err instanceof ApiError && err.status === 404) {
+          writeThread(null);
+          setThread(null);
+        }
+      }
+    };
+    load();
+    const timer = window.setInterval(load, open ? 20_000 : 60_000);
+    return () => {
+      stopped = true;
+      window.clearInterval(timer);
+    };
+  }, [threadId, threadToken, open]);
+
+  // While open, show the conversation and any staff replies not yet on screen, and mark them read.
+  useEffect(() => {
+    if (!open || !thread) return;
+    const add: Omit<Msg, "id">[] = [];
+    if (threadMsg && !shown.current.has("origin")) {
+      shown.current.add("origin");
+      add.push({ from: "user", text: threadMsg });
+    }
+    for (const r of replies) {
+      if (shown.current.has(r.id)) continue;
+      shown.current.add(r.id);
+      add.push({ from: "bot", text: r.body, staff: r.by_name });
+    }
+    if (add.length) setMsgs((p) => [...p, ...add.map((m) => ({ ...m, id: nextId++ }))]);
+    if (replies.length !== thread.seen) {
+      const t = { ...thread, seen: replies.length };
+      writeThread(t);
+      setThread(t);
+    }
+  }, [open, thread, threadMsg, replies]);
+
+  const unread = !open && thread ? Math.max(0, replies.length - thread.seen) : 0;
 
   // A fresh bot answer scrolls to its own top so the options below don't push it out of view.
   useEffect(() => {
@@ -134,7 +214,14 @@ export function SupportChat() {
       });
       setHandoff(false);
       setSent(true);
+      push({ from: "user", text: note });
       push({ from: "bot", text: res.message });
+      // Remember the conversation so a staff reply from the admin inbox lands back here.
+      const t = { id: res.id, token: res.thread_token, seen: 0 };
+      shown.current = new Set(["origin"]);
+      writeThread(t);
+      setThread(t);
+      setReplies([]);
     } catch (err) {
       push({
         from: "bot",
@@ -200,9 +287,17 @@ export function SupportChat() {
                     className={`max-w-[85%] whitespace-pre-line rounded-2xl px-3.5 py-2.5 text-sm leading-relaxed ${
                       m.from === "user"
                         ? "rounded-br-md bg-sg-primary text-white"
-                        : "rounded-bl-md border border-sg-violet-400/15 bg-white/[0.06] text-sg-body-dark"
+                        : m.staff
+                          ? "rounded-bl-md border border-sg-violet-400/50 bg-sg-primary/25 text-white"
+                          : "rounded-bl-md border border-sg-violet-400/15 bg-white/[0.06] text-sg-body-dark"
                     }`}
+                    data-testid={m.staff ? "support-staff-reply" : undefined}
                   >
+                    {m.staff && (
+                      <span className="mb-1 block font-mono text-[10px] font-bold uppercase tracking-wider text-sg-violet-400">
+                        {m.staff} · SecureGov team
+                      </span>
+                    )}
                     {m.text}
                     {m.action && actionLabels[m.action] && (
                       <button
@@ -307,7 +402,16 @@ export function SupportChat() {
         className="fixed bottom-5 right-4 z-[88] flex h-14 w-14 items-center justify-center rounded-full bg-sg-primary text-white shadow-xl shadow-sg-primary/40 transition-transform hover:scale-105 hover:bg-sg-primary-600 sm:right-6"
       >
         {open ? <X className="h-6 w-6" /> : <MessageCircle className="h-6 w-6" />}
-        {!open && <span className="absolute right-0.5 top-0.5 h-3 w-3 rounded-full border-2 border-sg-ink-950 bg-emerald-400" aria-hidden="true" />}
+        {!open && unread > 0 && (
+          <span
+            className="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full border-2 border-sg-ink-950 bg-sg-amber px-1 text-[10px] font-bold text-white"
+            data-testid="support-chat-unread"
+            aria-label={`${unread} new ${unread === 1 ? "reply" : "replies"} from the team`}
+          >
+            {unread}
+          </span>
+        )}
+        {!open && unread === 0 && <span className="absolute right-0.5 top-0.5 h-3 w-3 rounded-full border-2 border-sg-ink-950 bg-emerald-400" aria-hidden="true" />}
       </button>
     </>
   );

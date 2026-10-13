@@ -1,6 +1,9 @@
 import asyncio
+import hashlib
+import hmac
+import secrets
 from contextlib import asynccontextmanager
-from fastapi import FastAPI, APIRouter
+from fastapi import FastAPI, APIRouter, HTTPException
 from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
 import os
@@ -15,12 +18,21 @@ from datetime import datetime, timezone
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
 
-from lib.db import client, db, ensure_indexes
+from lib.db import as_utc, client, db, ensure_indexes
+from lib.auth import seed_first_admin
+from lib.inbox import reply_out
+from routers import admin as admin_routes
+from routers import auth as auth_routes
+
+
+async def _startup() -> None:
+    await ensure_indexes()
+    await seed_first_admin()
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    app.state.index_task = asyncio.create_task(ensure_indexes())
+    app.state.startup_task = asyncio.create_task(_startup())
     yield
     client.close()
 
@@ -53,6 +65,8 @@ class DemoRequest(BaseModel):
     company: str
     company_size: str
     frameworks: List[str]
+    status: str = "new"
+    replies: List[dict] = Field(default_factory=list)
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
 class DemoRequestResponse(BaseModel):
@@ -71,11 +85,20 @@ class SupportMessage(BaseModel):
     name: str
     email: EmailStr
     message: str
+    status: str = "new"
+    replies: List[dict] = Field(default_factory=list)
+    thread_token_hash: str = ""
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
 class SupportMessageResponse(BaseModel):
     id: str
     message: str
+    # Shown only to the visitor who sent the message; lets their chat window fetch staff replies.
+    thread_token: str
+
+
+def _token_hash(token: str) -> str:
+    return hashlib.sha256(token.encode()).hexdigest()
 
 
 @api_router.get("/")
@@ -94,37 +117,50 @@ async def get_status_checks():
     return [StatusCheck(**sc) for sc in status_checks]
 
 
+# Listing demo requests and support messages lives on the admin side (/api/admin/messages),
+# behind a staff login — visitors can only create them.
+
 @api_router.post("/demo-requests", response_model=DemoRequestResponse, status_code=201)
 async def create_demo_request(input: DemoRequestCreate):
     if not input.consent:
-        from fastapi import HTTPException
         raise HTTPException(status_code=422, detail="GDPR consent is required")
     req = DemoRequest(**input.model_dump(exclude={"consent"}))
     await db.demo_requests.insert_one(req.model_dump())
     return DemoRequestResponse(id=req.id, message="Thanks — the CyberHealth team will be in touch within one business day.")
 
-@api_router.get("/demo-requests", response_model=List[DemoRequest])
-async def list_demo_requests():
-    docs = await db.demo_requests.find().sort("created_at", -1).to_list(500)
-    return [DemoRequest(**d) for d in docs]
-
 
 @api_router.post("/support-messages", response_model=SupportMessageResponse, status_code=201)
 async def create_support_message(input: SupportMessageCreate):
     if not input.consent:
-        from fastapi import HTTPException
         raise HTTPException(status_code=422, detail="GDPR consent is required")
-    msg = SupportMessage(**input.model_dump(exclude={"consent"}))
+    token = secrets.token_urlsafe(24)
+    msg = SupportMessage(**input.model_dump(exclude={"consent"}), thread_token_hash=_token_hash(token))
     await db.support_messages.insert_one(msg.model_dump())
     first = msg.name.split()[0]
-    return SupportMessageResponse(id=msg.id, message=f"Thanks {first} — your message is with the CyberHealth team. Someone will reply to {msg.email} within one working day.")
+    return SupportMessageResponse(
+        id=msg.id,
+        message=f"Thanks {first} — your message is with the CyberHealth team. Someone will reply here and to {msg.email} within one working day.",
+        thread_token=token,
+    )
 
-@api_router.get("/support-messages", response_model=List[SupportMessage])
-async def list_support_messages():
-    docs = await db.support_messages.find().sort("created_at", -1).to_list(500)
-    return [SupportMessage(**d) for d in docs]
+
+@api_router.get("/support-messages/{message_id}/thread")
+async def support_thread(message_id: str, token: str):
+    """The visitor's own conversation: their message plus staff replies. Needs the token issued at send time."""
+    doc = await db.support_messages.find_one({"id": message_id}, {"_id": 0})
+    stored = (doc or {}).get("thread_token_hash", "")
+    if not doc or not stored or not hmac.compare_digest(stored, _token_hash(token)):
+        raise HTTPException(status_code=404, detail="Conversation not found")
+    return {
+        "id": doc["id"],
+        "message": doc["message"],
+        "created_at": as_utc(doc["created_at"]).isoformat(),
+        "replies": [reply_out(r) for r in doc.get("replies", [])],
+    }
 
 
+api_router.include_router(auth_routes.router)
+api_router.include_router(admin_routes.router)
 app.include_router(api_router)
 
 app.add_middleware(
